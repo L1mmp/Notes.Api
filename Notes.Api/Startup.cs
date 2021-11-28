@@ -16,6 +16,7 @@ using Notes.Domian.Repositories.Interface;
 using Notes.Domian.Services.Interface;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,6 +44,9 @@ namespace Notes.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Notes API", Version = "v1" });
+
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Notes.Api.xml");
+                c.IncludeXmlComments(filePath);
             });
 
         }
