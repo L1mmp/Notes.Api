@@ -19,18 +19,19 @@ namespace Notes.DataAccess.Repositories
 
         public void Add(Note note)
         {
-            var _note = _mapper.Map<Entites.Note>(note); 
+            var _note = _mapper.Map<Entites.Note>(note);
+            _note.CreationDate = System.DateTime.UtcNow;
+            _note.LastEditionDate = System.DateTime.UtcNow;
             _context.Notes.Add(_note);
         }
 
-        public void Delete(Note note)
+        public void Delete(int id)
         {
-            var _note = _mapper.Map<Entites.Note>(note);
-            _context.Notes.Remove(_context.Notes.Find(_note.Id));
+            _context.Notes.Remove(_context.Notes.Find(id));
         }
         public Note[] Get(string title)
         {
-            var notes = _context.Notes.Where(n => n.Title == title).ToArray();
+            var notes = _context.Notes.Where(n => n.Title.ToLower() == title.ToLower()).ToArray();
             return _mapper.Map<Note[]>(notes);
         }
 
@@ -40,10 +41,22 @@ namespace Notes.DataAccess.Repositories
             return _mapper.Map<Note[]>(notes);
         }
 
-        public void Update(Note note)
+        public Note GetById(int id)
         {
-            var _note = _mapper.Map<Entites.Note>(note);
-            _context.Update(_note);    
+            var note = _context.Notes.Find(id);
+            return _mapper.Map<Note>(note);
+        }
+
+        public void Update(int id, Note note)
+        {
+            var _noteToUpdate = _context.Notes.Find(id);
+            _mapper.Map(note, _noteToUpdate);
+            _context.Update(_noteToUpdate);
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

@@ -7,11 +7,11 @@ namespace Notes.Domian.Services.Interface
 {
     public interface INoteService
     {
-        bool Create(string title, string text, string[] hashtags);
+        bool Create(Note note);
         Note[] Get(string title);
-        void Update(Note note,string title, string text, string[] hashtags);
-        void Delete(Note note);
-
+        Note GetById(int id);
+        void Update(int id, Note note);
+        void Delete(int id);
         Note[] GetAllNotes();
     }
 }

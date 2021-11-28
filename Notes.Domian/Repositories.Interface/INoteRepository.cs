@@ -7,10 +7,11 @@ namespace Notes.Domian.Repositories.Interface
 {
     public interface INoteRepository
     {
+        void Add(Note note);
         Note[] GetAllNotes();
         Note[] Get(string title);
-        void Add(Note note);
-        void Update(Note note);
-        void Delete(Note note);
+        Note GetById(int id);
+        void Update(int id,Note note);
+        void Delete(int id);
     }
 }

@@ -2,8 +2,6 @@
 using Notes.Domian.Repositories.Interface;
 using Notes.Domian.Services.Interface;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Notes.Application.Services
 {
@@ -16,29 +14,19 @@ namespace Notes.Application.Services
             _noteRepository = noteRepository;
         }
 
-        public bool Create(string title, string text, string[] hashtags)
+        public bool Create(Note note)
         {
-            if (String.IsNullOrWhiteSpace(title)) return false;
-            if (String.IsNullOrWhiteSpace(text)) return false;
+            if (String.IsNullOrWhiteSpace(note.Title)) return false;
+            if (String.IsNullOrWhiteSpace(note.Text)) return false;
             else
             {
-                Note note = new Note
-                {
-                    Title = title,
-                    Text = text,
-                    Hashtags = hashtags,
-                    CreationDate = DateTime.UtcNow,
-                    LastEditionDate = null
-                };
-
                 _noteRepository.Add(note);
                 return true;
             }
         }
-
-        public void Delete(Note note)
+        public void Delete(int id)
         {
-            _noteRepository.Delete(note);
+            _noteRepository.Delete(id);
         }
 
         public Note[] Get(string title)
@@ -50,9 +38,14 @@ namespace Notes.Application.Services
         {
             return _noteRepository.GetAllNotes();
         }
-        public void Update(Note note, string title, string text, string[] hashtags)
+
+        public Note GetById(int id)
         {
-            _noteRepository.Update(note);
+            return _noteRepository.GetById(id);
+        }
+        public void Update(int id, Note note)
+        {
+            _noteRepository.Update(id,note);
         }
     }
 }

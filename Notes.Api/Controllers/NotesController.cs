@@ -17,9 +17,9 @@ namespace Notes.Api.Controllers
             _noteService = noteService;
         }
         [HttpPost]
-        public ActionResult<bool> Create(string title,string text, string[] Hashtags)
+        public ActionResult<bool> Create(Note note)
         {
-            return Ok(_noteService.Create(title, text, Hashtags));
+            return Ok(_noteService.Create(note));
         }
         [HttpGet("{title}")]
         public ActionResult<Note[]> Get(string title)
