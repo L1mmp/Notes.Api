@@ -13,5 +13,6 @@ namespace Notes.Domian.Repositories.Interface
         Note GetById(int id);
         void Update(int id,Note note);
         void Delete(int id);
+        void Save();
     }
 }

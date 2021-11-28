@@ -21,6 +21,7 @@ namespace Notes.Application.Services
             else
             {
                 _noteRepository.Add(note);
+                _noteRepository.Save();
                 return true;
             }
         }
