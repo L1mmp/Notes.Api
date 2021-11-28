@@ -16,27 +16,41 @@ namespace Notes.Api.Controllers
         {
             _noteService = noteService;
         }
+
         [HttpPost]
         public ActionResult<bool> Create(Note note)
         {
             return Ok(_noteService.Create(note));
         }
+
         [HttpGet("{title}")]
         public ActionResult<Note[]> Get(string title)
         {
-            return _noteService.Get(title);
+            return Ok(_noteService.Get(title));
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Note> GetById(int id)
+        {
+            return Ok(_noteService.GetById(id));
         }
 
         [HttpPut]
-        public ActionResult<string> Update(Guid id, string title, string text, string[] hashtags)
+        public void Update(int id, Note note)
         {
-            return Ok();
+            _noteService.Update(id, note);
         }
 
         [HttpGet]
         public ActionResult<Note[]> GetAllNotes()
         {
-            return _noteService.GetAllNotes();
+            return Ok(_noteService.GetAllNotes());
+        }
+
+        [HttpDelete]
+        public void Delete(int id)
+        {
+            _noteService.Delete(id);
         }
     }
 }
