@@ -9,7 +9,7 @@ namespace Notes.Domian.Repositories.Interface
     {
         void Add(Note note);
         Note[] GetAllNotes();
-        Note[] Get(string title);
+        Note[] GetByTitle(string title);
         Note GetById(int id);
         void Update(int id,Note note);
         void Delete(int id);

@@ -30,9 +30,9 @@ namespace Notes.Application.Services
             _noteRepository.Delete(id);
         }
 
-        public Note[] Get(string title)
+        public Note[] GetByTitle(string title)
         {
-            return _noteRepository.Get(title);
+            return _noteRepository.GetByTitle(title);
         }
 
         public Note[] GetAllNotes()

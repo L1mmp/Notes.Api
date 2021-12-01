@@ -8,7 +8,7 @@ namespace Notes.Domian.Services.Interface
     public interface INoteService
     {
         bool Create(Note note);
-        Note[] Get(string title);
+        Note[] GetByTitle(string title);
         Note GetById(int id);
         void Update(int id, Note note);
         void Delete(int id);
