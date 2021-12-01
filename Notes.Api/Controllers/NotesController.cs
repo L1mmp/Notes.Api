@@ -24,9 +24,9 @@ namespace Notes.Api.Controllers
         }
 
         [HttpGet("{title}")]
-        public ActionResult<Note[]> Get(string title)
+        public ActionResult<Note[]> GetByTitle(string title)
         {
-            return Ok(_noteService.Get(title));
+            return Ok(_noteService.GetByTitle(title));
         }
 
         [HttpGet("{id}")]

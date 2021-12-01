@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Notes.Application.Services;
 using Notes.DataAccess;
 using Notes.DataAccess.DataAccess;
+using Notes.DataAccess.NoteConvertor;
 using Notes.DataAccess.Repositories;
 using Notes.Domian.Repositories.Interface;
 using Notes.Domian.Services.Interface;
@@ -37,6 +38,7 @@ namespace Notes.Api
             services.AddControllers();
             services.AddScoped<INoteService, NoteService>();
             services.AddScoped<INoteRepository, NotesRepsitory>();
+            services.AddScoped<INoteConverter, NoteConverter>();
             services.AddDbContext<NotesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(DataAccessMappingProfile));
