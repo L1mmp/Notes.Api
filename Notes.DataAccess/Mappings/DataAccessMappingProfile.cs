@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Notes.Domian.Models;
+using System.Linq;
 
 namespace Notes.DataAccess
 {
@@ -7,8 +8,9 @@ namespace Notes.DataAccess
     {
         public DataAccessMappingProfile()
         {
-            CreateMap<Note, Entites.Note>()
+            CreateMap<Entites.Note, Note>()
                 .ReverseMap();
+
         }
     }
 }
