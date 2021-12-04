@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System;
 using AutoMapper;
 using Notes.DataAccess.DataAccess;
 using Notes.Domian.Models;
@@ -62,8 +63,14 @@ namespace Notes.DataAccess.Repositories
         public void Update(int id, Note note)
         {
             var _noteToUpdate = _context.Notes.Find(id);
-            _noteToUpdate = _noteConverter.ConvertNoteToEntity(note);
-            _context.Update(_noteToUpdate);
+            var convertedNote = _noteConverter.ConvertNoteToEntity(note);
+
+            _noteToUpdate.Title = convertedNote.Title;
+            _noteToUpdate.Text = convertedNote.Text;
+            _noteToUpdate.Hashtags = convertedNote.Hashtags;
+            _noteToUpdate.LastEditionDate = DateTime.UtcNow;
+
+            _context.Notes.Update(_noteToUpdate);
             Save();
         }
 
