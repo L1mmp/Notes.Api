@@ -4,5 +4,45 @@
         <name>Notes.Api</name>
     </assembly>
     <members>
+        <member name="M:Notes.Api.Controllers.NotesController.Create(Notes.Domian.Models.Note)">
+            <summary>
+            Create note
+            </summary>
+            <param name="note">Note object</param>
+            <returns></returns>
+        </member>
+        <member name="M:Notes.Api.Controllers.NotesController.GetByTitle(System.String)">
+            <summary>
+            Get notes with title
+            </summary>
+            <param name="title"> Note title</param>
+            <returns>Notes</returns>
+        </member>
+        <member name="M:Notes.Api.Controllers.NotesController.GetById(System.Int32)">
+            <summary>
+            Get notes with id
+            </summary>
+            <param name="id">Note id</param>
+            <returns>Note</returns>
+        </member>
+        <member name="M:Notes.Api.Controllers.NotesController.Update(System.Int32,Notes.Domian.Models.Note)">
+            <summary>
+            Update note with id
+            </summary>
+            <param name="id"> Note id</param>
+            <param name="note">Note object</param>
+        </member>
+        <member name="M:Notes.Api.Controllers.NotesController.GetAllNotes">
+            <summary>
+            Get all notes
+            </summary>
+            <returns>All notes</returns>
+        </member>
+        <member name="M:Notes.Api.Controllers.NotesController.Delete(System.Int32)">
+            <summary>
+            Delete note with id 
+            </summary>
+            <param name="id">Note id</param>
+        </member>
     </members>
 </doc>
