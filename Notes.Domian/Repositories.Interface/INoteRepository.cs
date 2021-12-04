@@ -10,9 +10,9 @@ namespace Notes.Domian.Repositories.Interface
         void Add(Note note);
         Note[] GetAllNotes();
         Note[] GetByTitle(string title);
-        Note GetById(int id);
-        void Update(int id,Note note);
-        void Delete(int id);
+        Note GetById(uint id);
+        void Update(uint id,Note note);
+        void Delete(uint id);
         void Save();
     }
 }

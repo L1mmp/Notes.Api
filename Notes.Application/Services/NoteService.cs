@@ -25,7 +25,7 @@ namespace Notes.Application.Services
                 return true;
             }
         }
-        public void Delete(int id)
+        public void Delete(uint id)
         {
             _noteRepository.Delete(id);
         }
@@ -40,11 +40,11 @@ namespace Notes.Application.Services
             return _noteRepository.GetAllNotes();
         }
 
-        public Note GetById(int id)
+        public Note GetById(uint id)
         {
             return _noteRepository.GetById(id);
         }
-        public void Update(int id, Note note)
+        public void Update(uint id, Note note)
         {
             _noteRepository.Update(id,note);
         }

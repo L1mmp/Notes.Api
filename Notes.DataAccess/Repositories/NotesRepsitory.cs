@@ -26,10 +26,14 @@ namespace Notes.DataAccess.Repositories
             Save();
         }
 
-        public void Delete(int id)
+        public void Delete(uint id)
         {
-            _context.Notes.Remove(_context.Notes.Find(id));
-            Save();
+            var noteToRemove = _context.Notes.Find(id);
+            if (!noteToRemove.Equals(null))
+            {
+                _context.Notes.Remove(noteToRemove);
+                Save();
+            }
         }
         public Note[] GetByTitle(string title)
         {
@@ -54,24 +58,32 @@ namespace Notes.DataAccess.Repositories
             return convertedNotes;
         }
 
-        public Note GetById(int id)
+        public Note GetById(uint id)
         {
-            var note = _context.Notes.Find(id);
-            return _noteConverter.ConvertEntityToNote(note);
+            if (!_context.Notes.Find(id).Equals(null))
+            {
+                var note = _context.Notes.Find(id);
+                return _noteConverter.ConvertEntityToNote(note);
+            }
+            return null;
         }
 
-        public void Update(int id, Note note)
+        public void Update(uint id, Note note)
         {
-            var _noteToUpdate = _context.Notes.Find(id);
-            var convertedNote = _noteConverter.ConvertNoteToEntity(note);
+            if (!_context.Notes.Find(id).Equals(null))
+            {
+                var _noteToUpdate = _context.Notes.Find(id);
+                var convertedNote = _noteConverter.ConvertNoteToEntity(note);
 
-            _noteToUpdate.Title = convertedNote.Title;
-            _noteToUpdate.Text = convertedNote.Text;
-            _noteToUpdate.Hashtags = convertedNote.Hashtags;
-            _noteToUpdate.LastEditionDate = DateTime.UtcNow;
+                _noteToUpdate.Title = convertedNote.Title;
+                _noteToUpdate.Text = convertedNote.Text;
+                _noteToUpdate.Hashtags = convertedNote.Hashtags;
+                _noteToUpdate.LastEditionDate = DateTime.UtcNow;
 
-            _context.Notes.Update(_noteToUpdate);
-            Save();
+                _context.Notes.Update(_noteToUpdate);
+                Save();
+            }
+
         }
 
         public void Save()

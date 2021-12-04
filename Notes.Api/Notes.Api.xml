@@ -18,14 +18,14 @@
             <param name="title"> Note title</param>
             <returns>Notes</returns>
         </member>
-        <member name="M:Notes.Api.Controllers.NotesController.GetById(System.Int32)">
+        <member name="M:Notes.Api.Controllers.NotesController.GetById(System.UInt32)">
             <summary>
             Get notes with id
             </summary>
             <param name="id">Note id</param>
             <returns>Note</returns>
         </member>
-        <member name="M:Notes.Api.Controllers.NotesController.Update(System.Int32,Notes.Domian.Models.Note)">
+        <member name="M:Notes.Api.Controllers.NotesController.Update(System.UInt32,Notes.Domian.Models.Note)">
             <summary>
             Update note with id
             </summary>
@@ -38,7 +38,7 @@
             </summary>
             <returns>All notes</returns>
         </member>
-        <member name="M:Notes.Api.Controllers.NotesController.Delete(System.Int32)">
+        <member name="M:Notes.Api.Controllers.NotesController.Delete(System.UInt32)">
             <summary>
             Delete note with id 
             </summary>

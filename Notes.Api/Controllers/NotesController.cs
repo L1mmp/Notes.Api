@@ -48,7 +48,7 @@ namespace Notes.Api.Controllers
         /// <returns>Note</returns>
         [HttpGet]
         [Route("Get/{id:int}")]
-        public ActionResult<Note> GetById(int id)
+        public ActionResult<Note> GetById(uint id)
         {
             return Ok(_noteService.GetById(id));
         }
@@ -60,7 +60,7 @@ namespace Notes.Api.Controllers
         /// <param name="note">Note object</param>
         [HttpPut]
         [Route("Update")]
-        public void Update(int id, Note note)
+        public void Update(uint id, Note note)
         {
             _noteService.Update(id, note);
         }
@@ -82,7 +82,7 @@ namespace Notes.Api.Controllers
         /// <param name="id">Note id</param>
         [HttpDelete]
         [Route("Delete")]
-        public void Delete(int id)
+        public void Delete(uint id)
         {
             _noteService.Delete(id);
         }
