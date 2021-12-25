@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Notes.DataAccess.Entites
 {
@@ -14,5 +15,10 @@ namespace Notes.DataAccess.Entites
         public string Text { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime? LastEditionDate { get; set; }
+
+        public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public User User { get; set; }
     }
 }

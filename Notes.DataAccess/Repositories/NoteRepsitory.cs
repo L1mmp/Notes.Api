@@ -5,25 +5,31 @@ using Notes.DataAccess.DataAccess;
 using Notes.Domian.Models;
 using Notes.Domian.Repositories.Interface;
 using Notes.DataAccess.NoteConvertor;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Notes.DataAccess.Repositories
 {
-    public class NotesRepsitory : INoteRepository
+    public class NoteRepsitory : INoteRepository
     {
-        private readonly NotesDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly INoteConverter _noteConverter;
 
-        public NotesRepsitory(NotesDbContext context, INoteConverter noteConverter)
+        public NoteRepsitory(ApplicationDbContext context, INoteConverter noteConverter)
         {
             _context = context;
             _noteConverter = noteConverter;
         }
 
-        public void Add(Note note)
+        public async Task<int> Add(Note note)
         {
             var _note = _noteConverter.ConvertNoteToEntity(note);
-            _context.Notes.Add(_note);
-            Save();
+
+            var result = await _context.Notes.AddAsync(_note);
+
+            await _context.SaveChangesAsync();
+
+            return result.Entity.Id;
         }
 
         public void Delete(uint id)
@@ -32,40 +38,44 @@ namespace Notes.DataAccess.Repositories
             if (!noteToRemove.Equals(null))
             {
                 _context.Notes.Remove(noteToRemove);
-                Save();
+                SaveAsync();
             }
         }
-        public Note[] GetByTitle(string title)
+        public List<Note> GetByTitle(string title)
         {
-            var notes = _context.Notes.Where(n => n.Title.ToLower() == title.ToLower()).ToArray();
-            Note[] convertedNotes = new Note[notes.Length + 1];
-            for (int i = 0; i < notes.Length; i++)
+            var notes = _context.Notes
+                .Where(n => n.Title.ToLower() == title.ToLower()).ToList();
+            List<Note> convertedNotes = new List<Note>();
+            foreach (var note in notes)
             {
-                convertedNotes[i] = _noteConverter.ConvertEntityToNote(notes[i]);
+                convertedNotes.Add(_noteConverter.ConvertEntityToNote(note));
             }
 
             return convertedNotes;
         }
 
-        public Note[] GetAllNotes()
+        public List<Note> GetAllNotes()
         {
-            var notes = _context.Notes.ToArray();
-            Note[] convertedNotes = new Note[notes.Length + 1];
-            for (int i = 0; i < notes.Length; i++)
+            var notes = _context.Notes.ToList();
+            List<Note> convertedNotes = new List<Note>();
+
+            foreach (var note in notes)
             {
-                convertedNotes[i] = _noteConverter.ConvertEntityToNote(notes[i]);
+                convertedNotes.Add(_noteConverter.ConvertEntityToNote(note));
             }
+
             return convertedNotes;
         }
 
         public Note GetById(uint id)
         {
-            if (!_context.Notes.Find(id).Equals(null))
+            var note = _context.Notes.FirstOrDefault(x => x.Id == id);
+            if (note is null)
             {
-                var note = _context.Notes.Find(id);
-                return _noteConverter.ConvertEntityToNote(note);
+                return null;
             }
-            return null;
+
+            return _noteConverter.ConvertEntityToNote(note);
         }
 
         public void Update(uint id, Note note)
@@ -81,14 +91,14 @@ namespace Notes.DataAccess.Repositories
                 _noteToUpdate.LastEditionDate = DateTime.UtcNow;
 
                 _context.Notes.Update(_noteToUpdate);
-                Save();
+                SaveAsync();
             }
 
         }
 
-        public void Save()
+        public async void SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

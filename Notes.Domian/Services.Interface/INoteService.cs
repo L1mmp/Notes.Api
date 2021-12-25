@@ -2,16 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Notes.Domian.Services.Interface
 {
     public interface INoteService
     {
-        bool Create(Note note);
-        Note[] GetByTitle(string title);
+        Task<bool> Create(Note note);
+        List<Note> GetByTitle(string title);
         Note GetById(uint id);
         void Update(uint id, Note note);
         void Delete(uint id);
-        Note[] GetAllNotes();
+        List<Note> GetAllNotes();
     }
 }

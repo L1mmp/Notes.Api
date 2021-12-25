@@ -4,6 +4,18 @@
         <name>Notes.Api</name>
     </assembly>
     <members>
+        <member name="M:Notes.Api.Controllers.AuthController.Login(Notes.Domian.Models.User)">
+            <summary>
+            Login 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Notes.Api.Controllers.AuthController.Register(Notes.Domian.Models.User)">
+            <summary>
+            Registration new user
+            </summary>
+            <param name="user"></param>
+        </member>
         <member name="M:Notes.Api.Controllers.NotesController.Create(Notes.Domian.Models.Note)">
             <summary>
             Create note
@@ -25,11 +37,10 @@
             <param name="id">Note id</param>
             <returns>Note</returns>
         </member>
-        <member name="M:Notes.Api.Controllers.NotesController.Update(System.UInt32,Notes.Domian.Models.Note)">
+        <member name="M:Notes.Api.Controllers.NotesController.Update(Notes.Domian.Models.Note)">
             <summary>
             Update note with id
             </summary>
-            <param name="id"> Note id</param>
             <param name="note">Note object</param>
         </member>
         <member name="M:Notes.Api.Controllers.NotesController.GetAllNotes">

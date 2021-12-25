@@ -2,7 +2,8 @@
 using Notes.Domian.Models;
 using Notes.Domian.Services.Interface;
 using System;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Notes.Api.Controllers
 {
@@ -24,9 +25,16 @@ namespace Notes.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Create")]
-        public ActionResult<bool> Create(Note note)
+        public async Task<IActionResult> Create(Note note)
         {
-            return Ok(_noteService.Create(note));
+            var response = await _noteService.Create(note);
+
+            if (response == false)
+            {
+                return BadRequest(new { message = "Didn`t added new note! " });
+            }
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -36,7 +44,7 @@ namespace Notes.Api.Controllers
         /// <returns>Notes</returns>
         [HttpGet]
         [Route("Get/{title}")]
-        public ActionResult<Note[]> GetByTitle(string title)
+        public IActionResult GetByTitle(string title)
         {
             return Ok(_noteService.GetByTitle(title));
         }
@@ -48,7 +56,7 @@ namespace Notes.Api.Controllers
         /// <returns>Note</returns>
         [HttpGet]
         [Route("Get/{id:int}")]
-        public ActionResult<Note> GetById(uint id)
+        public IActionResult GetById(uint id)
         {
             return Ok(_noteService.GetById(id));
         }
@@ -56,13 +64,12 @@ namespace Notes.Api.Controllers
         /// <summary>
         /// Update note with id
         /// </summary>
-        /// <param name="id"> Note id</param>
         /// <param name="note">Note object</param>
         [HttpPut]
         [Route("Update")]
-        public void Update(uint id, Note note)
+        public void Update(Note note)
         {
-            _noteService.Update(id, note);
+            _noteService.Update((uint)note.Id, note);
         }
 
         /// <summary>

@@ -10,7 +10,10 @@ namespace Notes.DataAccess
         {
             CreateMap<Entites.Note, Note>()
                 .ReverseMap();
-
+            CreateMap<Entites.User, User>()
+                .ReverseMap(); 
+            CreateMap<Entites.User[], User[]>()
+                .ReverseMap();
         }
     }
 }

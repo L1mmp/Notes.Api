@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Notes.Api.Middlewares;
 using Notes.Application.Services;
 using Notes.DataAccess;
 using Notes.DataAccess.DataAccess;
@@ -36,10 +37,14 @@ namespace Notes.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<INoteService, NoteService>();
-            services.AddScoped<INoteRepository, NotesRepsitory>();
-            services.AddScoped<INoteConverter, NoteConverter>();
-            services.AddDbContext<NotesDbContext>(options =>
+            services.AddTransient<INoteService, NoteService>();
+            services.AddScoped<INoteRepository, NoteRepsitory>();
+            services.AddSingleton<INoteConverter, NoteConverter>();
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
+            
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(DataAccessMappingProfile));
 
@@ -72,6 +77,8 @@ namespace Notes.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<JWTAuthMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

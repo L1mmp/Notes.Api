@@ -2,6 +2,8 @@
 using Notes.Domian.Repositories.Interface;
 using Notes.Domian.Services.Interface;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Notes.Application.Services
 {
@@ -14,14 +16,14 @@ namespace Notes.Application.Services
             _noteRepository = noteRepository;
         }
 
-        public bool Create(Note note)
+        public async Task<bool> Create(Note note)
         {
             if (String.IsNullOrWhiteSpace(note.Title)) return false;
             if (String.IsNullOrWhiteSpace(note.Text)) return false;
             else
             {
-                _noteRepository.Add(note);
-                _noteRepository.Save();
+                await _noteRepository.Add(note);
+                _noteRepository.SaveAsync();
                 return true;
             }
         }
@@ -30,12 +32,12 @@ namespace Notes.Application.Services
             _noteRepository.Delete(id);
         }
 
-        public Note[] GetByTitle(string title)
+        public List<Note> GetByTitle(string title)
         {
             return _noteRepository.GetByTitle(title);
         }
 
-        public Note[] GetAllNotes()
+        public List<Note> GetAllNotes()
         {
             return _noteRepository.GetAllNotes();
         }

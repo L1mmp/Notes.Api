@@ -8,11 +8,12 @@ using Notes.DataAccess.Entites;
 
 namespace Notes.DataAccess.DataAccess
 {
-    public class NotesDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public NotesDbContext(DbContextOptions<NotesDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }
